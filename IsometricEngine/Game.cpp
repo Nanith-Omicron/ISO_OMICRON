@@ -12,11 +12,11 @@
 #include <vector>		// To store the actors;
 #include <algorithm>    // std::sort
 
- 
+ /*
 #include "boost/filesystem/operations.hpp"
 #include "boost/foreach.hpp"
 namespace fs = boost::filesystem; 
- 
+ */
 #include <iostream>
 
 #include "GLFW/glfw3.h"

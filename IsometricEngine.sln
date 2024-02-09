@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28729.10
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "INF147", "INF147\INF147.vcxproj", "{9B13BE6E-0224-4B1F-A2C5-91BAB1C20745}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IsometricEngine", "IsometricEngine\IsometricEngine.vcxproj", "{9B13BE6E-0224-4B1F-A2C5-91BAB1C20745}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +26,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {DDFBF412-B604-4BF6-9E1C-E80745DE2D23}
+		SolutionGuid = {719EC87B-D2AA-4B94-818C-1F642B64E7AA}
 	EndGlobalSection
 EndGlobal
