@@ -1,9 +1,8 @@
 # ISOMETRIC-OPENGL-GAME
-Based on multiple tutorial, MakesGameWithBen &amp;&amp; OPENGL_BREAKOUT_TUTORIAL
+Isometric Engine made with physics based interaction in OpenGL,
+Using GLFW, GLAD, GLEW and Freetype.
+FFMPEG will be use as an audio backend.
 
-Isometric game:
-Made in OPENGL and C++/C .
-A project I made for my C class. Should change the file from C++ to C.
-Currently, version 0.01. Can read file to create an level out of it.
+It'll be expend upon the following week.
 
- https://gyazo.com/afa9fb5142c7de6597afe9314ca1ddc6
+<center><img src="https://gyazo.com/afa9fb5142c7de6597afe9314ca1ddc6.gif" width="50%" height="50%"/>
