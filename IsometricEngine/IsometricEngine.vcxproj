@@ -115,7 +115,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
-      <AdditionalIncludeDirectories>C:\glfw-3.3.9.bin.WIN64\include;C:\glew-2.1.0\include;C:\glad\include;C:\glm-1.0.0;C:\stbi;C:\boost_1_84_0\;C:\freetype-2.13.2\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\glfw-3.3.9.bin.WIN64\include;$(SolutionDir)dependencies\glew-2.1.0\include;$(SolutionDir)dependencies\glad\include;$(SolutionDir)dependencies\glm-1.0.0;$(SolutionDir)dependencies\stbi;C:\boost_1_84_0\;$(SolutionDir)dependencies\freetype-2.13.2\include</AdditionalIncludeDirectories>
       <EnableModules>false</EnableModules>
       <LanguageStandard_C>Default</LanguageStandard_C>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -123,7 +123,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\glew-2.1.0\include;C:\stbi;D:\__CODE\ISOMETRIC-OPENGL-GAME-master\INF147\;C:\boost_1_84_0\;C:\glfw-3.3.9.bin.WIN64\lib-vc2022;C:\boost_1_84_0\stage\lib;C:\freetype-2.13.2\lib;C:\freetype-2.13.2\bin</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\glew-2.1.0\include;$(SolutionDir)dependencies\stbi;D:\__CODE\ISOMETRIC-OPENGL-GAME-master\INF147\;C:\boost_1_84_0\;$(SolutionDir)dependencies\glfw-3.3.9.bin.WIN64\lib-vc2022;C:\boost_1_84_0\stage\lib;$(SolutionDir)dependencies\freetype-2.13.2\lib;$(SolutionDir)dependencies\freetype-2.13.2\bin</AdditionalLibraryDirectories>
       <AdditionalDependencies> glfw3dll.lib;freetype.lib</AdditionalDependencies>
     </Link>
     <ProjectReference>
@@ -161,7 +161,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\glfw-3.3.9.bin.WIN64\include;C:\glew-2.1.0\include;C:\glad\include;C:\glm-1.0.0;C:\stbi;C:\boost_1_84_0\;C:\freetype-2.13.2\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\glfw-3.3.9.bin.WIN64\include;$(SolutionDir)dependencies\glew-2.1.0\include;$(SolutionDir)dependencies\glad\include;$(SolutionDir)dependencies\glm-1.0.0;$(SolutionDir)dependencies\stbi;C:\boost_1_84_0\;$(SolutionDir)dependencies\freetype-2.13.2\include</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
       <EnableModules>false</EnableModules>
@@ -174,7 +174,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies> glfw3dll.lib;freetype.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\glew-2.1.0\include;C:\stbi;D:\__CODE\ISOMETRIC-OPENGL-GAME-master\INF147\;C:\boost_1_84_0\;C:\glfw-3.3.9.bin.WIN64\lib-vc2022;C:\boost_1_84_0\stage\lib;C:\freetype-2.13.2\lib;C:\freetype-2.13.2\bin</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\glew-2.1.0\include;$(SolutionDir)dependencies\stbi;D:\__CODE\ISOMETRIC-OPENGL-GAME-master\INF147\;C:\boost_1_84_0\;$(SolutionDir)dependencies\glfw-3.3.9.bin.WIN64\lib-vc2022;C:\boost_1_84_0\stage\lib;$(SolutionDir)dependencies\freetype-2.13.2\lib;$(SolutionDir)dependencies\freetype-2.13.2\bin</AdditionalLibraryDirectories>
     </Link>
     <ProjectReference>
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
