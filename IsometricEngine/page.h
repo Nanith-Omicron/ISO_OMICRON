@@ -10,34 +10,26 @@
 #include "UI_BUILDER.h"
 #include "UI_WINDOW.h"
 class page {
-	UI_BUTTON * test_Buttons;
+	UI_BUTTON* test_Buttons;
 
-public: 
-	 
- 
+public:
 
-
-	static std::vector<page*>   Books;
-	std::vector<UI_WINDOW* > windows;
-	int W, H;
+	static std::vector<page*> Books;
+	std::vector<UI_WINDOW* > windows{};
+	int W{}, H{};
 	bool alreadyInit = false;
-	std::vector<UI*> UIs;
-	std::vector< UI_BUTTON*> smart_UIs;
-	void (*letsGO)();
-	void (*con_Click)(Game* b);
-	Game* current;
+	std::vector<UI*> UIs{};
+	std::vector< UI_BUTTON*> smart_UIs{};
+	void (*letsGO)(){};
+	void (*con_Click)(Game* b){};
+	Game* current{};
 	glm::mat4 ortho;
-	virtual void init(int Width, int Height, Game * g);
+	virtual void init(int Width, int Height, Game* g);
 	virtual void Render(SpriteBatch* sp, TextRenderer* Text, GLSLProgram* pr);
 	virtual void Render_Text(TextRenderer* Text);
 	virtual void Update_UI(Mouse_info m);
-	
-	void Update(float dt);
 
+	void Update(double dt);
 	void UI_Render(SpriteBatch* sp);
-	int toGo;
-	 
-
-
-
+	int toGo{};
 };

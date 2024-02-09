@@ -48,7 +48,7 @@ bool item::CollisionWithMe(actor* a) {
 
 
 	}
-	actor::CollisionWithMe(a);
+	return actor::CollisionWithMe(a);
 
 
 }
@@ -69,7 +69,7 @@ void item::Draw(SpriteBatch & renderer, bool selected)
 
 	spos.y -= platZ;
 	//p.y -= zDepthOffset;
-	double dyMiz = .7 + (platZ - m_Zlevel) * .001f;
+	double dyMiz = .7 + (platZ - m_Zlevel) * .001;
 	if (dyMiz > 1.2f)dyMiz = 1.2f;
 	auto s2 = glm::vec2(100, 50);
 	if (FlipX)s2.x *= -1;

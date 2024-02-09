@@ -1,7 +1,7 @@
 #include "performer.h"
 
 
-void NRJ_FX::update(performer* p, float dt)
+void NRJ_FX::update(performer* p, double dt)
 {
  	p->fxColors =mainEffect.Effect(p->color, dt);
 	if(p->NRJ < p->MaxNRJ)
@@ -24,7 +24,7 @@ void NRJ_FX::OnReceived(performer* p)
 	ID = p->Effects.size() - 1;
 }
 
-void p_fx::update(performer* p, float dt)
+void p_fx::update(performer* p, double dt)
 {
 	if (!isInfinite)timeLeft -= dt;
  

@@ -1,10 +1,13 @@
 #pragma once
+#pragma warning( disable : 4244)
+
 #include "UI_BUTTON.h"
 #include <string>
+
 class UI_BUILDER {
 public:
 
-	static UI_BUTTON * CreateDefaultButton(int x, int y,float scale,  std::string w ="", float fontsize = .8f) {
+	static UI_BUTTON* CreateDefaultButton(int x, int y, float scale, std::string w = "", float fontsize = .8f) {
 		_box cl, ho, no;
 
 		no.tl = ResourceManager::GetTexture("Metal_UI_BUTTON_R");
@@ -18,7 +21,7 @@ public:
 		ho.tl = ResourceManager::GetTexture("Metal_UI_BUTTON_R");
 		ho.tm = ResourceManager::GetTexture("Metal_UI_BUTTON_H");
 		ho.tr = ResourceManager::GetTexture("Metal_UI_BUTTON_L");
-		auto b = new UI_BUTTON(&no, &ho, &cl,true);
+		auto b = new UI_BUTTON(&no, &ho, &cl, true);
 		if (!w.empty())b->setText(w);
 		b->scale = scale;
 		b->font_size = fontsize;
@@ -26,14 +29,14 @@ public:
 		b->pos.y = y;
 		return b;
 	}
-	static UI* createQuickImage(std::string w, int x, int y, double uscale = 5) {
+	static UI* createQuickImage(std::string w, double x, double y, double uscale = 5) {
 		auto q = new UI();
 		q->m_chipset = ResourceManager::GetTexture(w);
 		q->pos = glm::vec2(x, y);
 		q->scale = uscale;
 		return q;
 	}
-	static UI_BOX* CreateDefaultBox(int x, int y, double sx, double sy, double scale) {
+	static UI_BOX* CreateDefaultBox(double x, double y, double sx, double sy, double scale) {
 
 		auto box = new UI_BOX(
 			ResourceManager::GetTexture("UI_BOX_METAL_TL"),
@@ -56,7 +59,7 @@ public:
 
 
 	}
-	static UI_BOX* CreateDefaultInsideBox(int x, int y, double sx, double sy, float scale) {
+	static UI_BOX* CreateDefaultInsideBox(double x, double y, double sx, double sy, float scale) {
 
 		auto box = new UI_BOX(
 			ResourceManager::GetTexture("M_UI_INSIDE_1.png"),
@@ -76,7 +79,7 @@ public:
 
 
 	}
-	static UI_BOX* CreateTopBar(int x, int y, float sx, float sy, float scale = 5) {
+	static UI_BOX* CreateTopBar(double x, double y, float sx, float sy, float scale = 5) {
 
 		auto box = new UI_BOX{
 			ResourceManager::GetTexture("Metal_UI_TOP.png"),
@@ -86,8 +89,8 @@ public:
 		};
 		box->scale = scale;
 
-		box->resize(sx, sy);	 
-		box->setPos(x - box->renderedSize().x/2, y);
+		box->resize(sx, sy);
+		box->setPos(x - box->renderedSize().x / 2, y);
 		return box;
 	}
 

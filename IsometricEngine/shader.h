@@ -24,7 +24,7 @@ class Shader
 {
 public:
 	// state
-	unsigned int ID;
+	unsigned int ID{};
 	// constructor
 	Shader() { }
 	// sets the current shader as active

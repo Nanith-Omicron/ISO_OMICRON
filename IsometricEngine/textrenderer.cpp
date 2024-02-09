@@ -1,11 +1,5 @@
-/*******************************************************************
-** This code is part of Breakout.
-**
-** Breakout is free software: you can redistribute it and/or modify
-** it under the terms of the CC BY 4.0 license as published by
-** Creative Commons, either version 4 of the License, or (at your
-** option) any later version.
-******************************************************************/
+#pragma warning( disable : 4244)
+
 #include <iostream>
 
 #include <glm/gtc/matrix_transform.hpp>
@@ -109,11 +103,11 @@ void TextRenderer::RenderText(std::string text, double x, double y, double scale
 	{
 		Character ch = Characters[*c];
 
-		float xpos = x + ch.Bearing.x * scale;
-		float ypos = y + (this->Characters['H'].Bearing.y - ch.Bearing.y) * scale;
+		double xpos = x + ch.Bearing.x * scale;
+		double ypos = y + (this->Characters['H'].Bearing.y - ch.Bearing.y) * scale;
 
-		float w = ch.Size.x * scale;
-		float h = ch.Size.y * scale;
+		double w = ch.Size.x * scale;
+		double h = ch.Size.y * scale;
 		// update VBO for each character
 		float vertices[6][4] = {
 			{ xpos,     ypos + h,   0.0f, 1.0f },

@@ -24,6 +24,6 @@ public:
 	
 	Texture2D m_chipset;
 	void StickTo(actor * x);
-	void setPos(float x, float y);
+	void setPos(double x, double y);
 	virtual void  Draw(SpriteBatch& renderer, bool selected);	 
 };

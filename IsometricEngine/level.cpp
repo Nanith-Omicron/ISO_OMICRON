@@ -37,8 +37,8 @@ void level::createFloor(glm::vec2 there) {
 		r = ResourceManager::GetTexture("dungeon_floor");
 		break;
 	}
-	float x = there.x;
-	float y = there.y;
+	int x = there.x;
+	int y = there.y;
 	auto w = new tile(glm::vec2((x - y) * 50 + ORIGIN_POINT_X,
 		ORIGIN_POINT_Y + (x + y) * 33.5f),
 		2.0f, 5, TILE_NORMAL, r);
@@ -53,6 +53,7 @@ void level::createFloor(glm::vec2 there) {
 void level::createWall(glm::vec2 there, bool black) {
 	int x = there.x;
 	int y = there.y;
+
 	for (int i = 0; i < 2; i++)
 	{
 
@@ -79,7 +80,7 @@ void level::createWall(glm::vec2 there, bool black) {
 
 		auto w = new tile(glm::vec2((x - y) * 50 + ORIGIN_POINT_X,
 			ORIGIN_POINT_Y + (x + y) * 33.5f),
-			65.0f, i * 55.0f + 20.0f, TILE_BIG, ResourceManager::GetTexture("dungeon_wall_top"));
+			65.0f, i * 55 + 20, TILE_BIG, ResourceManager::GetTexture("dungeon_wall_top"));
 		if (black) {
 			w->color = glm::vec3(0, 0, 0);
 			w->justInvisible = true;
@@ -272,7 +273,7 @@ void level::enter(performer * player)
 
 
 }
-void level::update(float dt)
+void level::update(double dt)
 {
 	player->update(dt);
 	Area.get()->refresh(&NPCs, player);
@@ -285,7 +286,7 @@ void DrawThere(Texture2D& m_chipset, float x, float y, SpriteBatch& sp , float s
 	sp.draw(glm::vec4(x, y,
 		m_chipset.Width *scale, m_chipset.Height * scale),
 		glm::vec4(0.0f, 0.0f, 1.0f, 1.0f),
-		m_chipset.ID, 9999999999, glm::vec4(1));
+		m_chipset.ID, 9999.0f, glm::vec4(1));
 }
 bool level::visit(glm::vec2 p1, float l) {
 	bool t = false;

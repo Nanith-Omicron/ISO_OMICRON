@@ -7,8 +7,8 @@
 //A singular Cell 
 struct Cell {
 	std::vector<actor*>peps;
-	int x;
-	int y;
+	int x{};
+	int y{};
 };
 
 //Grid for spatial partioning 
@@ -35,6 +35,6 @@ public:
 	void addPrimitive(actor* p, Cell* c);
 
 	std::vector<Cell> cells;
-	int cellSize, width, height, numXCells, numYCells;
+	int cellSize=0, width=0, height=0, numXCells=0, numYCells=0;
 
 };

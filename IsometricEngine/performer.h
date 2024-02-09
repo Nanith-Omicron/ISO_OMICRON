@@ -7,7 +7,7 @@
 #include "P_fx.h"
 #include "item.h"
 
-
+#pragma warning( disable : 4267)
 
 //TODO addEvent To certain frame
 struct animation {
@@ -86,11 +86,11 @@ public:
 class performer : public actor {
 
 
-	float timer = 0;
+	double timer = 0;
 
 public:
 
-	performer();
+	performer() {};
 	performer(glm::vec2 pos, glm::vec2 siz, Texture2D   spr, glm::vec3 color = glm::vec3(1.0f), glm::vec2 velocity = glm::vec2(0.0f, 0.0f), m_layer lay = m_layer::PHYSICAL)
 		:actor(pos, siz, spr)
 	{
@@ -101,7 +101,7 @@ public:
 	//Stats logic
 	double HP = 10, Max_HP = 10;
 	double jump_Delay = .02, jump_Timer = 0;
-	float time_On_Ground=0;
+	double time_On_Ground=0;
 	int NRJ = 3, MaxNRJ = 3;
 	void quickStat(float hp, int nj) {
 		Max_HP = hp;
@@ -146,13 +146,13 @@ public:
 	}
 
 	virtual void Draw(SpriteBatch & renderer, bool selected);
-	virtual void animate(float dt);
+	virtual void animate(double dt);
 	virtual bool addAnimation(animation a);
 	virtual bool ChangeAnimation(int x);
-	virtual void Move(glm::vec2 v, float dt);
-	virtual void Jump(float dt);
-	virtual void update(float dt);
-	virtual void update(Grid * g, float dt);
+	virtual void Move(glm::vec2 v, double dt);
+	virtual void Jump(double dt);
+	virtual void update(double dt);
+	virtual void update(Grid * g, double dt);
 	virtual void onSide(actor* a);
 	virtual void Drop(item* w);
 

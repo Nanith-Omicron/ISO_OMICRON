@@ -1,11 +1,11 @@
 #include "Grid.h"
+#pragma warning( disable : 4267)
 
 
-
-Grid::Grid(int w, int h, int cs): width(w), height(h),cellSize(cs)
+Grid::Grid(int w, int h, int cs) : width(w), height(h), cellSize(cs)
 {
 	numXCells = (int)ceil((float)width / cellSize);
-	numYCells = (int)ceil((float)height/ cellSize);
+	numYCells = (int)ceil((float)height / cellSize);
 	const int RESERV = 128;
 	cells.resize(numXCells * numYCells);
 	for (size_t i = 0; i < cells.size(); i++)
@@ -23,16 +23,13 @@ Grid::~Grid()
 {
 }
 
-  
+
 void Grid::addPrimitive(actor* p)
 {
 	Cell* cell = getCell(p->localPos());
 	cell->peps.push_back(p);
 	p->currentCell = cell;
 	p->cind = cell->peps.size() - 1;
-
-
-
 }
 
 
@@ -43,10 +40,10 @@ void Grid::addPrimitives(std::vector<actor*>& p)
 	{
 		auto w = p[i];
 		auto r = w->localPos();
-	/*	r.x += CELLSIZE;
-		r.y += CELLSIZE;*/
+		/*	r.x += CELLSIZE;
+			r.y += CELLSIZE;*/
 		Cell* cell = getCell(r);
-	
+
 		cell->peps.push_back(w);
 		w->currentCell = cell;
 		w->cind = cell->peps.size() - 1;
@@ -54,9 +51,9 @@ void Grid::addPrimitives(std::vector<actor*>& p)
 
 }
 
-void Grid::addPrimitive(actor* p, Cell *c)
+void Grid::addPrimitive(actor* p, Cell* c)
 {
-	
+
 	c->peps.push_back(p);
 	p->currentCell = c;
 	p->cind = c->peps.size() - 1;
@@ -65,18 +62,18 @@ void Grid::addPrimitive(actor* p, Cell *c)
 Cell* Grid::getCell(int x, int y)
 {
 	if (x < 0)x = 0;
-	if (x >= numXCells)x = numXCells -1;
+	if (x >= numXCells)x = numXCells - 1;
 	if (y < 0)y = 0;
-	if (y >= numYCells)y = numYCells -1;
+	if (y >= numYCells)y = numYCells - 1;
 
-	return &cells[y * numXCells +x];
+	return &cells[y * numXCells + x];
 }
 
 Cell* Grid::getCell(const glm::vec2& pos)
 {
 	int cx = (int)(pos.x / cellSize);
 	int cy = (int)(pos.y / cellSize);
-	return getCell(cx,cy);
+	return getCell(cx, cy);
 }
 
 void Grid::removePrimitiveFromCell(actor* p)
@@ -88,7 +85,7 @@ void Grid::removePrimitiveFromCell(actor* p)
 	if (p->cind < (int)peps.size()) {
 		peps[p->cind]->cind = p->cind;
 	}
-	p->cind= -1;
+	p->cind = -1;
 	p->currentCell = nullptr;
 
 }
@@ -111,7 +108,7 @@ void Grid::refresh(std::vector<actor*>* p)
 
 }
 
-void Grid::refresh(std::vector<actor*>* p, actor * player)
+void Grid::refresh(std::vector<actor*>* p, actor* player)
 {
 
 
@@ -144,8 +141,6 @@ void Grid::refresh(std::vector<actor*>* p, actor * player)
 
 void Grid::refresh(std::vector<item*>* p, actor* player)
 {
-
-
 	player->isOnGround = false;
 	auto ewe = player->localPos();
 	ewe.x += CELLSIZE;
@@ -169,21 +164,15 @@ void Grid::refresh(std::vector<item*>* p, actor* player)
 		}
 	}
 
-
-
 }
 
 
 void Grid::updateCollision()
 {
-	
-
-
-	
 	for (int i = 0; i < cells.size(); ++i)
 	{
-		int x = i % numXCells; 
-		int y = i / numXCells; 
+		int x = i % numXCells;
+		int y = i / numXCells;
 		Cell& cc = cells[i];
 		for (int j = 0; j < cc.peps.size(); ++j)
 		{
@@ -191,30 +180,26 @@ void Grid::updateCollision()
 			if (!p->isAcollidee)continue;
 
 			checkCollision(p, cc.peps, j + 1);
-		 	if (x > 0) {
-				checkCollision(p, getCell(x - 1, y )->peps, 0);
-				if(y >0)checkCollision(p, getCell(x - 1, y - 1)->peps, 0);
-				if(y < numYCells -1)
+			if (x > 0) {
+				checkCollision(p, getCell(x - 1, y)->peps, 0);
+				if (y > 0)checkCollision(p, getCell(x - 1, y - 1)->peps, 0);
+				if (y < numYCells - 1)
 					if (y > 0)checkCollision(p, getCell(x - 1, y + 1)->peps, 0);
 
 			}
-			if(y > 0)checkCollision(p, getCell(x, y - 1)->peps, 0);
-			 
+			if (y > 0)checkCollision(p, getCell(x, y - 1)->peps, 0);
+
 		}
 	}
-
-
-
-
 
 }
 
 void Grid::checkCollision(actor* p, std::vector<actor*>& check, int ind)
 {
- 
-	for (size_t i = ind	; i < check.size(); i++)
+
+	for (size_t i = ind; i < check.size(); i++)
 	{
-	 
+
 		check[i]->preCollision(p);
 
 	}

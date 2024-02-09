@@ -24,7 +24,7 @@ void open_item_module() {
 } 
 
 
-void Page_Editor::Update(float dt)
+void Page_Editor::Update(double dt)
 {
 
 	if (mOption) {

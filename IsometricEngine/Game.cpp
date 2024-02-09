@@ -63,9 +63,9 @@ level First;
 page mainMenu;
 Page_Editor game_editor;
 //Lerp function
-float Lerp(float a, float b, float t)
+double Lerp(float a, float b, float t)
 {
-	return (1.0f - t) * a + t * b;
+	return (1.0 - t) * a + t * b;
 }
 
 

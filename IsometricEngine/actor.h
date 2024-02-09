@@ -5,8 +5,6 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 #include "VFX.h"
- 
-
 #include <glad/glad.h>
 #include "global.h"
 #include <glm\glm.hpp>
@@ -17,14 +15,12 @@
 #include "SpriteBatch.h"
 #include <string>
 
-
-
 class actor : public primitive {
 public:
 	enum class m_layer {
-		PHYSICAL=0,
-		BACKGROUND =1,
-		GHOSTLY =2
+		PHYSICAL = 0,
+		BACKGROUND = 1,
+		GHOSTLY = 2
 
 	};
 	enum class m_direction {
@@ -38,9 +34,9 @@ public:
 		EAST
 	};
 
-	glm::vec2 size= glm::vec2(1, 1);
-	glm::vec3 color = glm::vec3(1,1,1), fxColors = glm::vec3(0, 0, 0), vel = glm::vec3(0, 0, 0);
-	float speed = .5f;
+	glm::vec2 size = glm::vec2(1, 1);
+	glm::vec3 color = glm::vec3(1, 1, 1), fxColors = glm::vec3(0, 0, 0), vel = glm::vec3(0, 0, 0);
+	float speed = .25f;
 	bool isOnGround = false;
 	bool renderMe = true;
 	bool collideWithMe = true;
@@ -48,7 +44,7 @@ public:
 	bool CullByProximity = true;
 	bool invisibleByProximity = false;
 	bool alwaysProximityVisible = false;
-	float lastDistance =0.00;
+	float lastDistance = 0.00;
 	bool justInvisible = false;
 
 	//Direction of an items
@@ -82,9 +78,9 @@ public:
 	}
 	bool isLowerThan(glm::vec2 lol) {
 		glm::vec2 we = localPos();
-		return    we.x <=  lol.x && we.y <= lol.y  ;
+		return    we.x <= lol.x && we.y <= lol.y;
 	}
-	 
+
 	std::vector<VFX> VisualEffects{};
 	glm::vec2 relativeVel() {
 		glm::vec2 lol;
@@ -92,7 +88,7 @@ public:
 		lol.y = ((vel.y) / isoH - (vel.x) / isoW) / S_ratio;
 		return lol;
 	}
-	bool operator<(const actor & x) const
+	bool operator<(const actor& x) const
 	{
 		return  pos.y < x.pos.y;
 	}
@@ -101,9 +97,9 @@ public:
 	float zDepthOffset = 0;
 	float GlobalRotation = 0;
 	//Rotation of the object in isometric view;
- 
+
 	bool toDiscard = false, FlipX = false;
- 
+
 
 	rect* m_colliders{};
 	Texture2D  m_chipset{}, m_chipshadow{};
@@ -117,14 +113,14 @@ public:
 
 	//TODO remove that
 	//Actor do not have a collider by default. If they need more, we double the sizeOfCol.
-	void AddCollider(rect * r) {
+	void AddCollider(rect* r) {
 		if (numCol >= sizeOfCol) {
 			sizeOfCol *= 2;
 			m_colliders = new rect[sizeOfCol];
 		}
 		m_colliders[numCol++] = *r;
 	}
-	
+
 	actor() {
 
 	}
@@ -138,21 +134,21 @@ public:
 		this->collisionBoundZ = glm::vec2(7.5f, 37.5f);
 		isAcollidee = true;
 	}
-	
-	
-	virtual float DistanceFrom(actor * a); float DistanceFrom(glm::vec2 pos);
-	virtual float drawShadow(actor * a);
-	virtual void Draw(SpriteBatch & renderer, bool selected = false);
+
+
+	virtual float DistanceFrom(actor* a); float DistanceFrom(glm::vec2 pos);
+	virtual float drawShadow(actor* a);
+	virtual void Draw(SpriteBatch& renderer, bool selected = false);
 	virtual bool CollisionWithMe(glm::vec2 v);
 	//Collision with an Actor,
-	virtual bool CollisionWithMe(actor * a);
+	virtual bool CollisionWithMe(actor* a);
 	virtual void update(float dt);
-	virtual void update(Grid * g, float dt);
-	virtual void onTop(actor * a);
-	virtual void onSide(actor * a);
-	virtual void onBottom(actor * a);
-	virtual void preCollision(actor * a);
- 
+	virtual void update(Grid* g, float dt);
+	virtual void onTop(actor* a);
+	virtual void onSide(actor* a);
+	virtual void onBottom(actor* a);
+	virtual void preCollision(actor* a);
+
 	void activeActor(bool t);
 	virtual m_direction getDirection();
 	std::string m_entityName;

@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning( disable : 4244)
 
 #include "UI_BAR.h"
 #include <string>
@@ -20,10 +21,10 @@ class UI_BOX : public UI {
 
 public:
 	//Pieces of the bar
-	_box internal_box;
+	_box internal_box{};
 	bool onlyCenter = false;
 	bool hasText = false;
-	std::string TextToWrite;
+	std::string TextToWrite{};
 	double font_size = 1.0;
 	glm::vec2 renderedSize() {
 

@@ -23,8 +23,9 @@ void UI_Performer_Status::Draw(SpriteBatch& renderer, bool selected)
 		 
 	}
 	
-	Texture2D  ty;
-	float s = scale/2;
+	Texture2D  ty{};
+	double s = scale/2;
+
 	for (size_t i = 0; i < who->Effects.size(); i++)
 	{
 		ty = who->Effects[i]->tex;

@@ -1,7 +1,7 @@
 #include "page.h"
 
 
- std::vector<page*>   page::Books;
+std::vector<page*>   page::Books;
 
 bool menuOption = false;
 int cur_option = -1;
@@ -18,19 +18,19 @@ void lol() {
 	printf("Trying Dungeon 1 \n");
 	menuOption = true;
 	cur_option = 1;
-   }
+}
 void setFalse() {
 
 	cur_option = -1;
 	menuOption = false;
 }
 
-void page::init(int Width, int Height, Game * g)
+void page::init(int Width, int Height, Game* g)
 {
 	if (alreadyInit)return;
 	alreadyInit = true;
-	 W = Width;
-	 H = Height;
+	W = Width;
+	H = Height;
 	ortho = glm::ortho(0.0f, static_cast<float>(Width),
 		static_cast<float>(Height), 0.0f, -1.0f, 1.0f);
 	printf("Init Main Menu.\n");
@@ -40,25 +40,25 @@ void page::init(int Width, int Height, Game * g)
 
 	auto box = UI_BUILDER::CreateDefaultBox(Width / 2, Height / 2 + 400, 6, 5, uscale);
 	UIs.push_back(box);
- 
+
 	int offset = 40;
 	float text_size = .8f;
 	int but_x = 0;
-	test_Buttons = UI_BUILDER::CreateDefaultButton(but_x, box->pos.y + offset , 
+	test_Buttons = UI_BUILDER::CreateDefaultButton(but_x, box->pos.y + offset,
 		uscale, "Dungeon 1 Test", text_size);
 	but_x = box->pos.x + 28;
 	test_Buttons->pos.x = but_x;
 	test_Buttons->onClick = *lol;
- 
+
 	auto wrr = UI_BUILDER::CreateDefaultButton(but_x, box->pos.y +
-		offset + 100, uscale, "Open Editor",text_size);
-	auto qww = UI_BUILDER::CreateDefaultButton(but_x, box->pos.y 
-		+ offset + 200, uscale,"Quit", text_size);
+		offset + 100, uscale, "Open Editor", text_size);
+	auto qww = UI_BUILDER::CreateDefaultButton(but_x, box->pos.y
+		+ offset + 200, uscale, "Quit", text_size);
 	wrr->onClick = *uwu;
 	qww->onClick = *g->Quit;
 	auto eq = new UI();
 	eq->m_chipset = ResourceManager::GetTexture("krinj");
-	eq->pos.x = but_x + eq->m_chipset.Width * eq->scale/2;
+	eq->pos.x = but_x + eq->m_chipset.Width * eq->scale / 2;
 	eq->show = true;
 	eq->pos.y = 350;
 	eq->scale = 6;
@@ -81,13 +81,13 @@ void page::Render(SpriteBatch* sp, TextRenderer* Text, GLSLProgram* pr)
 	;
 
 	int x = 0, y = 0;
-	int x_size =0;
-	
+	int x_size = 0;
+
 	int total = 0;
 	/*
 	for (auto const& imap : ResourceManager::Textures)
 	{
-	
+
 		total++;
 		if (total > nextImage)break;
 		x++;
@@ -132,28 +132,26 @@ void page::Render_Text(TextRenderer* Text)
 }
 
 
-void page::Update(float dt)
+void page::Update(double dt)
 {
 	if (menuOption) {
 
 		switch (cur_option)
 		{
 		case 1:
-		
 			current->loadTestLevel();
-
 			break;
 		case 2:
 			current->openPage(1, Game::GameState::GAME_EDITOR);
-			;
+			break;
+
 		default:
-			break;	
+			break;
 		}
 
 		setFalse();
-
 	}
-	
+
 }
 
 void page::Update_UI(Mouse_info m)
@@ -163,7 +161,7 @@ void page::Update_UI(Mouse_info m)
 	{
 		windows[i]->update_UI(m);
 	}
-	for (int i = 0; i <smart_UIs.size(); i++)
+	for (int i = 0; i < smart_UIs.size(); i++)
 	{
 		if (smart_UIs[i]->Update(m, alreadSelected))alreadSelected = true;
 	}
@@ -171,11 +169,9 @@ void page::Update_UI(Mouse_info m)
 
 void page::UI_Render(SpriteBatch* sp)
 {
-
 	for (int i = 0; i < UIs.size(); i++) UIs[i]->Draw(*sp, false);
- 
 
- 	for (int i = 0; i < smart_UIs.size(); i++)
+	for (int i = 0; i < smart_UIs.size(); i++)
 	{
 		smart_UIs[i]->Draw(*sp, false);
 	}
@@ -183,7 +179,6 @@ void page::UI_Render(SpriteBatch* sp)
 	{
 		windows[i]->Draw(*sp, false);
 	}
-
 }
 
- 
+

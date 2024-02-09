@@ -77,7 +77,7 @@ void metaItem::SaveMetaItem(metaItem* m)
 	file << m->tex_Icon + "|";
 	file << m->tex_menu + "|";
 	file << m->tex_tangible + "|";
-	file << m->type + "|";
+	file << (int)m->type + "|";
 	file << m->value; file << "|";
 	file << m->x_size; file << "|";
 	file << m->y_size; file << "|";

@@ -5,8 +5,8 @@
 class performer;
 class p_fx {
 public:
-	int ID;
-	Texture2D   tex;
+	int ID{};
+	Texture2D tex{};
 	float timeLeft= -1;
 	bool isInfinite = false;	
 	std::string m_entityName;
@@ -15,7 +15,7 @@ public:
 	p_fx(Texture2D q) {
 		tex = q;
 	}
-	virtual void update(performer* p, float dt);
+	virtual void update(performer* p, double dt);
 	virtual void OnReceived(performer* p);
 	virtual void OnExpired(performer* p);
 	virtual void OnHit(performer* p);
@@ -32,6 +32,6 @@ public:
 	int Amount = 0;
 	float _timer = 0, GiveNRJat = 1;
 	virtual void OnReceived(performer* p);
-	virtual void update(performer* p, float dt);
+	virtual void update(performer* p, double dt);
 	
 };

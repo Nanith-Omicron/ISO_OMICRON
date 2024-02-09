@@ -42,7 +42,7 @@ public:
 	virtual void init(const char* file, int Width, int Height);
 	virtual void enter(performer* player);
  
-	virtual void update(float dt);
+	virtual void update(double dt);
 	bool  visit(glm::vec2 p1, float l);
 	void raytrace(glm::vec2 from, glm::vec2 there);
 	void raycastAlgorithm();
@@ -51,8 +51,8 @@ public:
 	virtual void exit();
 
 	std::string level_Name{};
-	int level_size_X, level_size_Y, level_size_Z;
-	int ScreenH, ScreenW;
+	int level_size_X{}, level_size_Y{}, level_size_Z{};
+	int ScreenH{}, ScreenW{};
 	int level_ID{};
 	int cellSize = 3;
 	int heightOfWall = 3;

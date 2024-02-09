@@ -2,16 +2,16 @@
 #include "actor.h"
 #include "rect.h"
 
- 
+
 float actor::DistanceFrom(actor* a) {
 	auto w = a->localPos() - localPos();
-	return w.x* w.x + w.y * w.y;
+	return w.x * w.x + w.y * w.y;
 	// slow return sqrt((w.x * w.x + w.y * w.y));
 }
 
 float actor::DistanceFrom(glm::vec2 pos) {
 	auto w = pos - localPos();
-	return w.x* w.x + w.y * w.y;
+	return w.x * w.x + w.y * w.y;
 	// slow return sqrt((w.x * w.x + w.y * w.y));
 }
 void actor::onTop(actor* a) {
@@ -27,9 +27,9 @@ void actor::onBottom(actor* a) {
 }
 void actor::preCollision(actor* a) {
 	if (!collideWithMe)return;
-	  if (a == this)return;
-	CollisionWithMe(a); 
-	 
+	if (a == this)return;
+	CollisionWithMe(a);
+
 }
 void  actor::activeActor(bool t) {
 	if (!CullByProximity)return;
@@ -38,12 +38,12 @@ void  actor::activeActor(bool t) {
 	physicsMe = t;
 }
 //TODO change to Radius Type collision
-bool actor::CollisionWithMe(actor * a) {
+bool actor::CollisionWithMe(actor* a) {
 
-	 
-	float localx = this->localPos().x - this->collisionBoundXY.x/2;
+
+	float localx = this->localPos().x - this->collisionBoundXY.x / 2;
 	float localy = this->localPos().y - this->collisionBoundXY.y / 2;
-	glm::vec2 act_pos = a->localPos() - this->collisionBoundXY/2.0f;
+	glm::vec2 act_pos = a->localPos() - this->collisionBoundXY / 2.0f;
 	float act_z = a->m_Zlevel;
 	glm::vec2 act_bound = a->collisionBoundXY;
 	bool grd = false;
@@ -103,7 +103,7 @@ bool actor::CollisionWithMe(actor * a) {
 
 					a->setlocalPos(act_pos.x, act_pos.y);
 					vec *= .05f;
-					
+
 					a->localVel(vec.x, vec.y);
 					localVel(-vec.x, -vec.y);
 					return true;
@@ -132,10 +132,10 @@ float actor::drawShadow(actor* a) {
 
 	return cqq;
 }
- 
-void actor::Draw(SpriteBatch & renderer, bool selected) {
+
+void actor::Draw(SpriteBatch& renderer, bool selected) {
 	if (!&m_chipset || !renderMe)return;
-	glm::vec3 c = this->color  +this->fxColors;
+	glm::vec3 c = this->color + this->fxColors;
 	glm::vec2 p = this->pos;
 	glm::vec2 s = this->size;
 	auto uvRect = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
@@ -151,37 +151,37 @@ void actor::Draw(SpriteBatch & renderer, bool selected) {
 	float dyMiz = 1 + (platZ - m_Zlevel) * .001f;
 	if (dyMiz > 1.2f)dyMiz = 1.2f;
 	auto s2 = glm::vec2(100, 50);
-	 if (FlipX)s2.x *= -1;
+	if (FlipX)s2.x *= -1;
 
 	//renderer.DrawSprite(shadow, spos + glm::vec2(0 - 2, 0), s2 * dyMiz, 0, glm::vec4(0, 0, 0, dyMiz));
-	renderer.draw( glm::vec4(spos.x - 2 , spos.y +2,
+	renderer.draw(glm::vec4(spos.x - 2, spos.y + 2,
 		s2.x * dyMiz, s2.y * dyMiz),
 		uvRect,
-		m_chipshadow.ID, pos.y + zDepthOffset + platZ-10, glm::vec4(c, dyMiz));
+		m_chipshadow.ID, pos.y + zDepthOffset + platZ - 10, glm::vec4(c, dyMiz));
 	if (FlipX) {
-		uvRect.x += 1.0f ; // this will add one tile over
+		uvRect.x += 1.0f; // this will add one tile over
 		uvRect.z *= -1;
 	}
 
 
-	
+
 	//	if (GHOSTLY)c*= .3f;
 	//if (selected) p.y += 10;
-	 if (FlipX) s.x *= -1;
+	if (FlipX) s.x *= -1;
 	//	renderer.DrawSprite(this->img, p, s, this->GlobalRotation, c);
-	 if (selected) {
+	if (selected) {
 
 
-		 renderer.draw(glm::vec4(p.x, p.y,
-			 s.x, s.y),
-			 glm::vec4(0.0f, 0.0f, 1.0f, 1.0f),
-			 m_chipset.ID,999999, glm::vec4(0,0,0, .3));
-		 return;
-	 }
-	renderer.draw(glm::vec4(p.x  , p.y  ,
-		s.x  , s.y  ),
+		renderer.draw(glm::vec4(p.x, p.y,
+			s.x, s.y),
+			glm::vec4(0.0f, 0.0f, 1.0f, 1.0f),
+			m_chipset.ID, 999999, glm::vec4(0, 0, 0, .3));
+		return;
+	}
+	renderer.draw(glm::vec4(p.x, p.y,
+		s.x, s.y),
 		glm::vec4(0.0f, 0.0f, 1.0f, 1.0f),
-		m_chipset.ID, pos.y + zDepthOffset + m_Zlevel, glm::vec4(c * alpha, 1.5) );
+		m_chipset.ID, pos.y + zDepthOffset + m_Zlevel, glm::vec4(c * alpha, 1.5));
 
 	if (!&m_chipshadow)return;
 
@@ -198,10 +198,8 @@ bool actor::CollisionWithMe(glm::vec2 v) {
 	return false;
 }
 
+//TODO, Change to Double- Currently there's a precision issues with framerate
 void actor::update(float dt) {
- 
-	 
-	 
 
 	if (!physicsMe)return;
 	this->pos.x += vel.x;
@@ -213,13 +211,22 @@ void actor::update(float dt) {
 	if (vel.x > 100)vel.x = 100;	if (vel.x < -100)vel.x = -100;
 	if (vel.y > 100)vel.y = 100;	if (vel.y < -100)vel.y = -100;
 	if (vel.z > 100)vel.z = 100;	if (vel.z < -100)vel.z = -100;
-	if (!isOnGround && m_Zlevel > 0) vel.z -= 1.1f;
+	if (!isOnGround && m_Zlevel > 0) vel.z -= 0.418f;
+	
+	//Friction- Currenctly losing .04% vectically, .13% horizontally
 	if (abs(vel.length()) > 0) {
-		vel.y *= .87f;
-		vel.x *= .87f;
+		if (isOnGround) {
+			vel.y *= .89f;
+			vel.x *= .89f;
+		}
+		else{
+			vel.y *= .92f;
+			vel.x *= .92f;
+		}
+
 		if (vel.z > 0)
-			vel.z *= .96f;
-		else 	vel.z *= .95f;
+			vel.z *= .89f;
+		else 	vel.z *= .94f;
 	}
 
 	if (m_Zlevel <= platZ && isOnGround) {
