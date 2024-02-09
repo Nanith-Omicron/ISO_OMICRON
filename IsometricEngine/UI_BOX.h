@@ -24,7 +24,7 @@ public:
 	bool onlyCenter = false;
 	bool hasText = false;
 	std::string TextToWrite;
-	float font_size = 1.0f;
+	double font_size = 1.0;
 	glm::vec2 renderedSize() {
 
 		glm::vec2 pop;
@@ -70,5 +70,5 @@ public:
 	virtual void Draw(SpriteBatch& renderer, bool selected, _box  * box = NULL) ;
 	virtual void Draw(SpriteBatch& renderer, bool selected);
 	virtual void DrawText(TextRenderer& Text);
-	void resize(float x, float y);
+	void resize(double x, double y);
 };

@@ -37,8 +37,8 @@ void level::createFloor(glm::vec2 there) {
 		r = ResourceManager::GetTexture("dungeon_floor");
 		break;
 	}
-	int x = there.x;
-	int y = there.y;
+	float x = there.x;
+	float y = there.y;
 	auto w = new tile(glm::vec2((x - y) * 50 + ORIGIN_POINT_X,
 		ORIGIN_POINT_Y + (x + y) * 33.5f),
 		2.0f, 5, TILE_NORMAL, r);
@@ -79,7 +79,7 @@ void level::createWall(glm::vec2 there, bool black) {
 
 		auto w = new tile(glm::vec2((x - y) * 50 + ORIGIN_POINT_X,
 			ORIGIN_POINT_Y + (x + y) * 33.5f),
-			65.0f, i * 55 + 20, TILE_BIG, ResourceManager::GetTexture("dungeon_wall_top"));
+			65.0f, i * 55.0f + 20.0f, TILE_BIG, ResourceManager::GetTexture("dungeon_wall_top"));
 		if (black) {
 			w->color = glm::vec3(0, 0, 0);
 			w->justInvisible = true;
@@ -174,15 +174,15 @@ void level::init(const char* file, int Width, int Height)
 	metaTile = mt;
 
 	auto banana = new item();
-	banana->name = "Banana";
-	banana->img = ResourceManager::GetTexture("big_nana");
+	banana->m_entityName = "Banana";
+	banana->m_chipset = ResourceManager::GetTexture("big_nana");
 	banana->UI_img = ResourceManager::GetTexture("QuickUI_Banana");
 	banana->amount = 1;
 	banana->setlocalPos(28, 2);
 
 	banana->value = 1;
 	banana->onDrop(0);
-	banana->shadow = ResourceManager::GetTexture("shadow");
+	banana->m_chipshadow = ResourceManager::GetTexture("shadow");
 
 	Items.push_back(banana);
 
@@ -281,11 +281,11 @@ void level::update(float dt)
 
 	for (int i = 0; i < all.size(); i++)	all[i]->update(dt);
 }
-void DrawThere(Texture2D& img, float x, float y, SpriteBatch& sp , float scale = 3) {
+void DrawThere(Texture2D& m_chipset, float x, float y, SpriteBatch& sp , float scale = 3) {
 	sp.draw(glm::vec4(x, y,
-		img.Width *scale, img.Height * scale),
+		m_chipset.Width *scale, m_chipset.Height * scale),
 		glm::vec4(0.0f, 0.0f, 1.0f, 1.0f),
-		img.ID, 9999999999, glm::vec4(1));
+		m_chipset.ID, 9999999999, glm::vec4(1));
 }
 bool level::visit(glm::vec2 p1, float l) {
 	bool t = false;
@@ -316,18 +316,18 @@ bool level::visit(glm::vec2 p1, float l) {
 }
 void level::raytrace(glm::vec2 from, glm::vec2 there)
 {
-	float  dx = abs(there.x - from.x);
-	float dy = abs(there.y - from.y);
-	float  x = from.x;
-	float  y = from.y;
-	float  n = dx + dy;
-	float  x_inc = (there.x > from.x) ? 1 : -1;
-	float  y_inc = (there.y > from.y) ? 1 : -1;
-	float  error = dx - dy;
+	double  dx = abs(there.x - from.x);
+	double dy = abs(there.y - from.y);
+	double  x = from.x;
+	double  y = from.y;
+	double  n = dx + dy;
+	double  x_inc = (there.x > from.x) ? 1 : -1;
+	double  y_inc = (there.y > from.y) ? 1 : -1;
+	double  error = dx - dy;
 	dx *= 2;
 	dy *= 2;
 
-	float light = 1.3;
+	double light = 1.3;
 	for (; n > 0 && light > 0; --n)
 	{
 		if (visit(glm::vec2(x, y), light))return;

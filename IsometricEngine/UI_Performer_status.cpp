@@ -10,10 +10,10 @@ void UI_Performer_Status::Draw(SpriteBatch& renderer, bool selected)
 	glm::vec2 p = this->pos;
 	HP->ui_ratio = who->HP / who->Max_HP;
 	HP->Draw(renderer,selected);
-	HP->pos = p += glm::vec2(0, 10)*scale;
+	HP->pos = p += glm::vec2(0, 10)* (float)scale;
 
 
-	float start = (( HP->Back.Width/ 2) - 3.1)* scale  ;
+	double start = (( HP->Back.Width/ 2) - 3.1)* scale  ;
 	for (size_t i = 0; i < who->MaxNRJ; i++)
 	{
 		
@@ -33,7 +33,7 @@ void UI_Performer_Status::Draw(SpriteBatch& renderer, bool selected)
 			glm::vec4(p.x + i * s - s*25, p.y - s * 12,
 			ty.Width * s, ty.Height * s),
 			glm::vec4(0.0f, 0.0f, 1.0f, 1.0f),
-			ty.ID, 9999999999, col);
+			ty.ID, 999999, col);
 	
 	} 
 

@@ -6,18 +6,6 @@
 #include <stdexcept>
 #include "P_fx.h"
 #include "item.h"
-struct frame {
-
-	Texture2D tx;
-	int repeat, w_flag;
-	frame() {
-
-	}
-	frame(Texture2D f, int t = 1) {
-		tx = f; repeat = t;
-	}
-
-};
 
 
 
@@ -26,7 +14,25 @@ struct animation {
 
 private:
 	int cur_Frame_Rep = 0;
+
+
 public:
+	struct frame {
+
+		Texture2D tx{};
+		int repeat{}, w_flag{};
+		frame() {
+
+		}
+		frame(Texture2D f, int t = 1) {
+			tx = f; repeat = t;
+		}
+
+	};
+
+
+
+
 	std::vector<frame> frames;
 	int currentFrame_ID = 0;
 	bool flipX, flipY;
@@ -65,8 +71,7 @@ public:
 
 
 
-
-			auto xd = frames[currentFrame_ID];
+			frame xd = frames[currentFrame_ID];
 			currentFrame_ID++;
 			if (currentFrame_ID >= frames.size())currentFrame_ID = 0;
 			cur_Frame_Rep = xd.repeat;
@@ -86,7 +91,7 @@ class performer : public actor {
 public:
 
 	performer();
-	performer(glm::vec2 pos, glm::vec2 siz, Texture2D   spr, glm::vec3 color = glm::vec3(1.0f), glm::vec2 velocity = glm::vec2(0.0f, 0.0f), LAYER lay = PHYSICAL)
+	performer(glm::vec2 pos, glm::vec2 siz, Texture2D   spr, glm::vec3 color = glm::vec3(1.0f), glm::vec2 velocity = glm::vec2(0.0f, 0.0f), m_layer lay = m_layer::PHYSICAL)
 		:actor(pos, siz, spr)
 	{
 
@@ -94,28 +99,27 @@ public:
 	};
 
 	//Stats logic
-	float HP = 10, Max_HP = 10;
-	float jump_Delay = .02, jump_Timer = 0;
-	float time_On_Ground;
+	double HP = 10, Max_HP = 10;
+	double jump_Delay = .02, jump_Timer = 0;
+	float time_On_Ground=0;
 	int NRJ = 3, MaxNRJ = 3;
 	void quickStat(float hp, int nj) {
 		Max_HP = hp;
 		MaxNRJ = nj;
 		HP = hp;
 		NRJ = nj;
-
 	}
 
-	std::vector<animation> Animations;
-	Texture2D  spr_default;
-	glm::vec2 Sight;
+	std::vector<animation> Animations{};
+	Texture2D  spr_default{};
+	glm::vec2 Sight{};
 	int frameRate = 100;
-	glm::vec2 input_Dir;
-	int cur_Animation_ID;
-	Direction Last_Direction;
+	glm::vec2 input_Dir{};
+	int cur_Animation_ID{};
+	m_direction Last_Direction{};
 	bool animated = true;
-	std::vector<p_fx*> Effects;
-	std::vector<item*> Inventory;
+	std::vector<p_fx*> Effects{};
+	std::vector<item*> Inventory{};
 	
 
 	virtual void ApplyEffects(p_fx * ef) {
@@ -140,6 +144,7 @@ public:
 			Effects[i]->OnDeath(this);
 		printf("Died");
 	}
+
 	virtual void Draw(SpriteBatch & renderer, bool selected);
 	virtual void animate(float dt);
 	virtual bool addAnimation(animation a);
@@ -151,7 +156,7 @@ public:
 	virtual void onSide(actor* a);
 	virtual void Drop(item* w);
 
-	virtual  Direction getDirection();
+	virtual  m_direction getDirection();
 	void setInputDir(glm::vec2 v);
 };
 

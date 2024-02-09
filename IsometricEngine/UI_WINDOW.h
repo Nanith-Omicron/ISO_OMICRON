@@ -10,7 +10,7 @@ class UI_WINDOW : UI {
 	bool hasButton = false;
 
 public:
-	static UI_WINDOW* Alert_Window(std::string ok,float x, float y, std::string name = "Alert Windows") {
+	static UI_WINDOW* Alert_Window(std::string ok, double x, double y, std::string name = "Alert Windows") {
 		auto w = new UI_WINDOW();
 		w->window_name = name;
 		if (!ok.empty())w->hasText = true;
@@ -35,7 +35,7 @@ public:
 		return w;
 
 	}
-	static UI_WINDOW* ItemDB(float x, float y) {
+	static UI_WINDOW* ItemDB(double x, double y) {
 		auto w = new UI_WINDOW();
 		w->font_size = .7f;
 		float uscale = 5;
@@ -62,7 +62,7 @@ public:
 		return ren_size;
 
 	}
-	float font_size = 0.9f;
+	double font_size = 0.9f;
 	glm::vec2 Text_offset;
 	std::string window_name;
 	

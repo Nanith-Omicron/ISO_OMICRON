@@ -60,22 +60,22 @@ int main(void)
 	//glEnable(GL_MULTISAMPLE); //AA
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	glfwSwapInterval(0);//Vsync
-	Theater.State = GAME_MENU;
+	glfwSwapInterval(1);//Vsync
+	Theater.State = Game::GameState::GAME_MENU;
 	Theater.Quit = *QUIT_THE_APPLICATION;
 
 	Theater.Init();
  
-	float deltaTime = 0.0f;
-	float lastFrame = 0.0f;
+	double deltaTime = 0.0f;
+	double lastFrame = 0.0f;
 
 	while (!glfwWindowShouldClose(window))
 	{
 
-		float currentFrame = glfwGetTime();
+		double currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
-		float totalDelta = (float)deltaTime / (1000/ Max_FPS);
+		double totalDelta =  deltaTime / (1000/ Max_FPS);
 		
 		
 		glfwPollEvents();
@@ -91,7 +91,7 @@ int main(void)
 		int i = 0;
 		while (totalDelta > 0.0f && i < 6)
 		{
-			float delta = std::min(totalDelta, 1.0f);
+			double delta = std::min(totalDelta, 1.0);
 			Theater.Update(delta);
 			totalDelta -= delta;
 			++i;

@@ -159,7 +159,7 @@
 
 
 
-	void GLSLProgram::compileShader(const char* source, const std::string & name, GLint shaderID) {
+	void GLSLProgram::compileShader(const char* source, const std::string & m_entityName, GLint shaderID) {
 
 
 		glShaderSource(shaderID, 1, &source, nullptr);

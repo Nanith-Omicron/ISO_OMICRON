@@ -1,36 +1,25 @@
 #pragma once
-/*******************************************************************
-** This code is part of Breakout.
-**
-** Breakout is free software: you can redistribute it and/or modify
-** it under the terms of the CC BY 4.0 license as published by
-** Creative Commons, either version 4 of the License, or (at your
-** option) any later version.
-******************************************************************/
+
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
 #include <glad/glad.h>
 
-// Texture2D is able to store and configure a texture in OpenGL.
-// It also hosts utility functions for easy management.
-
-
 class Texture2D
 {
 public:
 	// holds the ID of the texture object, used for all texture operations to reference to this particlar texture
-	unsigned int ID;
+	unsigned int ID = 0;
 	// texture image dimensions
-	unsigned int Width, Height; // width and height of loaded image in pixels
+	unsigned int Width = 0, Height = 0; // width and height of loaded image in pixels
 	// texture Format
-	unsigned int Internal_Format; // format of texture object
-	unsigned int Image_Format; // format of loaded image
+	unsigned int Internal_Format = 0; // format of texture object
+	unsigned int Image_Format = 0; // format of loaded image
 	// texture configuration
-	unsigned int Wrap_S; // wrapping mode on S axis
-	unsigned int Wrap_T; // wrapping mode on T axis
-	unsigned int Filter_Min; // filtering mode if texture pixels < screen pixels
-	unsigned int Filter_Max; // filtering mode if texture pixels > screen pixels
+	unsigned int Wrap_S = 0; // wrapping mode on S axis
+	unsigned int Wrap_T = 0; // wrapping mode on T axis
+	unsigned int Filter_Min = 0; // filtering mode if texture pixels < screen pixels
+	unsigned int Filter_Max = 0; // filtering mode if texture pixels > screen pixels
  
 	// constructor (sets default texture modes)
 	Texture2D();

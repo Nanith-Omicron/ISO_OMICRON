@@ -44,19 +44,19 @@ bool actor::CollisionWithMe(actor * a) {
 	float localx = this->localPos().x - this->collisionBoundXY.x/2;
 	float localy = this->localPos().y - this->collisionBoundXY.y / 2;
 	glm::vec2 act_pos = a->localPos() - this->collisionBoundXY/2.0f;
-	float act_z = a->Z;
+	float act_z = a->m_Zlevel;
 	glm::vec2 act_bound = a->collisionBoundXY;
 	bool grd = false;
 	//To fired off events. We do not take the Actual size in count. 
 	if (act_pos.x > localx - 1 && act_pos.x < localx + 1)
 		if (act_pos.y > localy - 1 && act_pos.y < localy + 1)
 			//40
-			if (this->Z > act_z && this->Z < act_z + 30) {
+			if (this->m_Zlevel > act_z && this->m_Zlevel < act_z + 30) {
 				onTop(a);
-				if (this->Z > act_z && this->Z < act_z + 30)
-					if (a->vel.z < 0 || (a->Z + a->vel.z) < Z)a->vel.z = 0;
+				if (this->m_Zlevel > act_z && this->m_Zlevel < act_z + 30)
+					if (a->vel.z < 0 || (a->m_Zlevel + a->vel.z) < m_Zlevel)a->vel.z = 0;
 
-				if ((act_z + a->vel.z) < Z)act_z = 0;
+				if ((act_z + a->vel.z) < m_Zlevel)act_z = 0;
 
 				grd = true;
 
@@ -74,17 +74,17 @@ bool actor::CollisionWithMe(actor * a) {
 			act_pos.y - act_bound.y < localy + this->collisionBoundXY.y) {
 			onSide(a);
 
-			if (this->Z + collisionBoundZ.x > act_z - a->collisionBoundXY.x
-				&& this->Z - collisionBoundZ.y < act_z + a->collisionBoundZ.y) {
+			if (this->m_Zlevel + collisionBoundZ.x > act_z - a->collisionBoundXY.x
+				&& this->m_Zlevel - collisionBoundZ.y < act_z + a->collisionBoundZ.y) {
 
-				if (Z > act_z) {
-					a->Z = act_z - 1;
+				if (m_Zlevel > act_z) {
+					a->m_Zlevel = act_z - 1;
 					a->vel.z = 0;
 					onBottom(a);
 				}
 				//x 10 y -30 for Tweaking reason.
-				if (this->Z + collisionBoundZ.x > act_z - a->collisionBoundXY.x
-					&& this->Z - collisionBoundZ.y < act_z + a->collisionBoundZ.y) {
+				if (this->m_Zlevel + collisionBoundZ.x > act_z - a->collisionBoundXY.x
+					&& this->m_Zlevel - collisionBoundZ.y < act_z + a->collisionBoundZ.y) {
 					auto vec = (act_pos - localPos());
 
 					if (vec.length() > 0)vec /= vec.length();
@@ -120,9 +120,9 @@ bool actor::CollisionWithMe(actor * a) {
 
 
 }
-Direction actor::getDirection() {
+actor::m_direction actor::getDirection() {
 
-	return WEST;
+	return m_direction::WEST;
 }
 
 float actor::drawShadow(actor* a) {
@@ -134,21 +134,21 @@ float actor::drawShadow(actor* a) {
 }
  
 void actor::Draw(SpriteBatch & renderer, bool selected) {
-	if (!&img || !renderMe)return;
+	if (!&m_chipset || !renderMe)return;
 	glm::vec3 c = this->color  +this->fxColors;
 	glm::vec2 p = this->pos;
 	glm::vec2 s = this->size;
 	auto uvRect = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
-	p.y -= (Z / (55 / 33));
+	p.y -= (m_Zlevel / (55 / 33));
 
-	p.y -= (img.Height);
+	p.y -= (m_chipset.Height);
 	p.x -= 2;
 
 	glm::vec2 spos = pos;
 
 	spos.y -= platZ;
 	//p.y -= zDepthOffset;
-	float dyMiz = 1 + (platZ - Z) * .001f;
+	float dyMiz = 1 + (platZ - m_Zlevel) * .001f;
 	if (dyMiz > 1.2f)dyMiz = 1.2f;
 	auto s2 = glm::vec2(100, 50);
 	 if (FlipX)s2.x *= -1;
@@ -157,7 +157,7 @@ void actor::Draw(SpriteBatch & renderer, bool selected) {
 	renderer.draw( glm::vec4(spos.x - 2 , spos.y +2,
 		s2.x * dyMiz, s2.y * dyMiz),
 		uvRect,
-		shadow.ID, pos.y + zDepthOffset + platZ-10, glm::vec4(c, dyMiz));
+		m_chipshadow.ID, pos.y + zDepthOffset + platZ-10, glm::vec4(c, dyMiz));
 	if (FlipX) {
 		uvRect.x += 1.0f ; // this will add one tile over
 		uvRect.z *= -1;
@@ -175,15 +175,15 @@ void actor::Draw(SpriteBatch & renderer, bool selected) {
 		 renderer.draw(glm::vec4(p.x, p.y,
 			 s.x, s.y),
 			 glm::vec4(0.0f, 0.0f, 1.0f, 1.0f),
-			 img.ID,999999, glm::vec4(0,0,0, .3));
+			 m_chipset.ID,999999, glm::vec4(0,0,0, .3));
 		 return;
 	 }
 	renderer.draw(glm::vec4(p.x  , p.y  ,
 		s.x  , s.y  ),
 		glm::vec4(0.0f, 0.0f, 1.0f, 1.0f),
-		img.ID, pos.y + zDepthOffset + Z, glm::vec4(c * alpha, 1.5) );
+		m_chipset.ID, pos.y + zDepthOffset + m_Zlevel, glm::vec4(c * alpha, 1.5) );
 
-	if (!&shadow)return;
+	if (!&m_chipshadow)return;
 
 }
 
@@ -207,13 +207,13 @@ void actor::update(float dt) {
 	this->pos.x += vel.x;
 	this->pos.y += vel.y;
 	// localMove( vel.y * dt, -vel.x * dt);
-	this->Z += vel.z;
+	this->m_Zlevel += vel.z;
 
 
 	if (vel.x > 100)vel.x = 100;	if (vel.x < -100)vel.x = -100;
 	if (vel.y > 100)vel.y = 100;	if (vel.y < -100)vel.y = -100;
 	if (vel.z > 100)vel.z = 100;	if (vel.z < -100)vel.z = -100;
-	if (!isOnGround && Z > 0) vel.z -= 1.1f;
+	if (!isOnGround && m_Zlevel > 0) vel.z -= 1.1f;
 	if (abs(vel.length()) > 0) {
 		vel.y *= .87f;
 		vel.x *= .87f;
@@ -222,8 +222,8 @@ void actor::update(float dt) {
 		else 	vel.z *= .95f;
 	}
 
-	if (Z <= platZ && isOnGround) {
-		Z = platZ;
+	if (m_Zlevel <= platZ && isOnGround) {
+		m_Zlevel = platZ;
 		if (vel.z < 0)vel.z = 0;
 	}
 

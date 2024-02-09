@@ -95,7 +95,7 @@ void TextRenderer::Load(std::string font, unsigned int fontSize)
 	FT_Done_FreeType(ft);
 }
 
-void TextRenderer::RenderText(std::string text, float x, float y, float scale, glm::vec3 color)
+void TextRenderer::RenderText(std::string text, double x, double y, double scale, glm::vec3 color)
 {
 	// activate corresponding render state	
 	this->TextShader.Use();

@@ -31,7 +31,7 @@
 
 
 	private:
-		void compileShader(const char* source, const std::string& name, GLint shaderID);
+		void compileShader(const char* source, const std::string& m_entityName, GLint shaderID);
 
 
 		GLuint m_programID;

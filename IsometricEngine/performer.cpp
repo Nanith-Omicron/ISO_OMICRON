@@ -34,7 +34,7 @@ void performer::onSide(actor* a)
 	
 	if (!w)return;
  
-	printf(w->name.c_str());
+	printf(w->m_entityName.c_str());
 	printf(" is in the pocket :smirk:\n");
 	w->owner = a;
 	w->CullByProximity = false;
@@ -52,24 +52,24 @@ void performer::Drop(item* w)
 }
 
 
-Direction performer::getDirection()
+actor::m_direction performer::getDirection()
 {
 	if (Sight.x == 1 && Sight.y == 0)
-		return NORTH;
+		return m_direction::NORTH;
 	if (Sight.x == -1 && Sight.y == 0)
-		return SOUTH;
+		return m_direction::SOUTH;
 	if (Sight.x == -.5 && Sight.y == .5)
-		return DOWN;
+		return m_direction::DOWN;
 	if (Sight.x == .5 && Sight.y == -.5)
-		return UP;
+		return m_direction::UP;
 	if (Sight.x == .5 && Sight.y == .5)
-		return RIGHT;
+		return m_direction::RIGHT;
 	if (Sight.x == -.5 && Sight.y == -.5)
-		return LEFT;
+		return m_direction::LEFT;
 	if (Sight.x == 0 && Sight.y == 1)
-		return EAST;
+		return m_direction::EAST;
 	if (Sight.x == 0 && Sight.y == -1)
-		return WEST;
+		return m_direction::WEST;
 	return Last_Direction;
 
 }
@@ -88,7 +88,7 @@ void performer::animate(float dt)
 	timer += dt;
 	if (timer > f) {
 		timer = 0;
-		img = Animations[cur_Animation_ID].currentFrame();
+		m_chipset = Animations[cur_Animation_ID].currentFrame();
 	}
 }
 
@@ -105,7 +105,7 @@ bool performer::ChangeAnimation(int x)
 	Animations[cur_Animation_ID].reset_current_Frame();
 	return true;
 }
-Direction testDir;
+actor::m_direction testDir;
 
 
 void performer::Move(glm::vec2 v, float dt)
@@ -114,37 +114,41 @@ void performer::Move(glm::vec2 v, float dt)
 	 Sight.y = (v.x + v.y) / 2;
 
 	bool isZero = Sight.y == 0 && Sight.x == 0;
-	Direction dir = getDirection();
+	m_direction dir = getDirection();
 	vel += glm::vec3(v * speed, 0);
 
 	ChangeAnimation(0);
 
-	if (Last_Direction == NORTH || Last_Direction == UP || Last_Direction == WEST || Last_Direction == LEFT) { cur_Animation_ID = 2; }
+	if (Last_Direction ==  m_direction::NORTH || 
+		Last_Direction == m_direction::UP || 
+		Last_Direction == m_direction::WEST ||
+		Last_Direction == m_direction::LEFT)
+		{ cur_Animation_ID = 2; }
  
 	if (!isZero) {
-		if (dir == NORTH || dir == UP) {
+		if (dir == m_direction::NORTH || dir == m_direction::UP) {
 
 			FlipX = true;
 			cur_Animation_ID = 3;
 		}
-		if (dir == WEST || dir == LEFT) {
+		if (dir == m_direction::WEST || dir == m_direction::LEFT) {
 
 			FlipX = false;
 			cur_Animation_ID = 3;
 		}
-		if (dir == EAST || dir == RIGHT) {
+		if (dir == m_direction::EAST || dir == m_direction::RIGHT) {
 			FlipX = false;
 			cur_Animation_ID = 1;
 		}
-		if (dir == SOUTH || dir == DOWN) {
+		if (dir == m_direction::SOUTH || dir == m_direction::DOWN) {
 			FlipX = false;
-			if (dir == SOUTH)FlipX = true;
+			if (dir == m_direction::SOUTH)FlipX = true;
 			cur_Animation_ID = 1;
 		}
 	}
 	if (!isOnGround) {
 		cur_Animation_ID = 5;
-		if (dir == NORTH || dir == UP || dir == WEST || dir == LEFT)
+		if (dir == m_direction::NORTH || dir == m_direction::UP || dir == m_direction::WEST || dir == m_direction::LEFT)
 			cur_Animation_ID = 4;
 	}
 
@@ -156,7 +160,7 @@ void performer::Move(glm::vec2 v, float dt)
 void performer::Jump(float dt)
 {
  
-	 if (Z < -15) vel.z += 60;
+	 if (m_Zlevel < -15) vel.z += 60;
 	if (!isOnGround|| NRJ == 0 || jump_Timer < jump_Delay 
 		|| time_On_Ground < .006) return;
 	jump_Timer = 0;

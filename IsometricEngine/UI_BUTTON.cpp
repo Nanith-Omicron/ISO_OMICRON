@@ -2,8 +2,8 @@
 //TO DO, function are better
 bool UI_BUTTON::Update(Mouse_info m, bool x)
 {
-	bool UseClick = state == CLICKED;
-	state = NORMAL;
+	bool UseClick = state == UI_BUTTON_STATE::CLICKED;
+	state = UI_BUTTON_STATE::NORMAL;
 	if (x)return false;
 	ui_size_y = norm.tr.Height * scale;
 	if (!onlyCenter)ui_size_y = norm.tr.Height * scale * sy - (norm.tr.Height + norm.tl.Height) * scale;
@@ -14,7 +14,7 @@ bool UI_BUTTON::Update(Mouse_info m, bool x)
 		if (m.rawY > pos.y - ui_size_y / 2 && m.rawY < pos.y + ui_size_y / 2) {
 
 			if (m.buttons[0]) {
-				state = CLICKED;
+				state = UI_BUTTON_STATE::CLICKED;
 				if (!UseClick && onClick != NULL) {
 					onClick();
 
@@ -25,12 +25,12 @@ bool UI_BUTTON::Update(Mouse_info m, bool x)
 					return true;
 				}
 			}
-			else if (m.buttons[1])state = RIGHT_CLICKED;
-			else state = HOVER;
+			else if (m.buttons[1])state = UI_BUTTON_STATE::RIGHT_CLICKED;
+			else state = UI_BUTTON_STATE::HOVER;
 
 
 		}
-	return state != NORMAL;
+	return state != UI_BUTTON_STATE::NORMAL;
 }
 
 void UI_BUTTON::Draw(SpriteBatch& renderer, bool selected, _box* box)
@@ -40,23 +40,23 @@ void UI_BUTTON::Draw(SpriteBatch& renderer, bool selected, _box* box)
 
 	switch (state)
 	{
-	case NORMAL:
+	case UI_BUTTON_STATE::NORMAL:
 		lol = &norm;
 		lol->empt = false;
 
 		break;
-	case HOVER:
+	case UI_BUTTON_STATE::HOVER:
 		lol = &hov;
 		lol->empt = false;
 
 		break;
-	case CLICKED:
+	case UI_BUTTON_STATE::CLICKED:
 		lol = &click;
 		lol->empt = false;
 		break;
-	case RIGHT_CLICKED:
+	case UI_BUTTON_STATE::RIGHT_CLICKED:
 		break;
-	case DRAGGED:
+	case UI_BUTTON_STATE::DRAGGED:
 		break;
 	default:
 		lol = &norm;

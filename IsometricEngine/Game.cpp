@@ -17,6 +17,7 @@
 #include "boost/foreach.hpp"
 namespace fs = boost::filesystem; 
  */
+
 #include <iostream>
 
 #include "GLFW/glfw3.h"
@@ -81,10 +82,10 @@ performer* quickPerformer(int q) {
 	auto wq = new performer(glm::vec2(400 + rand() % 2000, rand() % 2000), glm::vec2(100, 134.6),
 		ResourceManager::GetTexture("frag"), glm::vec3(.5, .5, 1));
 	wq->platZ = 0;
-	wq->Z = 500;
+	wq->m_Zlevel = 500;
 	wq->zDepthOffset = 172;//400;
 	wq->size = glm::vec2(100, 100);
-	wq->shadow = ResourceManager::GetTexture("shadow");
+	wq->m_chipshadow = ResourceManager::GetTexture("shadow");
 
 	animation idle;
 	idle.addFrames(rsm GetTexture("q_pep_walk-1"));
@@ -135,7 +136,7 @@ performer* quickPerformer(int q) {
 void setupPlayer() {
 
 	player = quickPerformer(0);
-	player->platZ = 0; 	player->Z = 500; player->zDepthOffset = 400;
+	player->platZ = 0; 	player->m_Zlevel = 500; player->zDepthOffset = 400;
 	player->size = glm::vec2(100, 100);
 	player->quickStat(10, 3);
 	return;
@@ -301,7 +302,7 @@ void Game::loadTestLevel()
 	First.init("dungeon/dungeon_prototype.png",Width, Height);
 	//====================Enter the level======================//
 	First.enter(player);
-	State = GAME_ACTIVE;
+	State = GameState::GAME_ACTIVE;
 	current = &First;
  
 }
@@ -332,18 +333,18 @@ void Game::Init() {
 	printf("Loading state\n");
 	switch (State)
 	{
-	case GAME_ACTIVE:
+	case GameState::GAME_ACTIVE:
 		printf("Game active State.\n");
 		loadTestLevel();
 		break;
-	case GAME_MENU:
+	case GameState::GAME_MENU:
 		printf("Game Menu State.\n");
 		
 		break;
-	case GAME_WIN:
+	case GameState::GAME_WIN:
 		printf("Game Win State.\n");
 		break;
-	case GAME_EDITOR:
+	case GameState::GAME_EDITOR:
 		printf("Game Editor State.\n");
 	
 		break;
@@ -358,7 +359,7 @@ void Game::Init() {
 	//Initialized the lerpPlayerPos to -300 for introduction effects
 	lerpPlayerPos = player->pos + glm::vec2(0, -300);
 }
-void Game::Update(float dt) {
+void Game::Update(double dt) {
 
 	//Player move based on Input
 	player->Move(player->input_Dir, dt);
@@ -376,15 +377,15 @@ void Game::Update(float dt) {
 	//Update the level
 	switch (State)
 	{
-	case GAME_ACTIVE:	
+	case GameState::GAME_ACTIVE:
 		First.update(dt);
 		break;
-	case GAME_MENU:
+	case GameState::GAME_MENU:
 		mainMenu.Update(dt);
 		break;
-	case GAME_WIN:
+	case GameState::GAME_WIN:
 		break;
-	case GAME_EDITOR:
+	case GameState::GAME_EDITOR:
 		game_editor.Update(dt);
 		break;
 	default:
@@ -394,13 +395,13 @@ void Game::Update(float dt) {
 
 }
 
-void Game::ProcessInput(float dt) {
+void Game::ProcessInput(double dt) {
 
 	//Calculate Mouse position in localPosition 
 	Cursor.localX = (Cursor.rawX - spriteBatch.Camera.x) / spriteBatch.zoom;
 	Cursor.localY = (Cursor.rawY - spriteBatch.Camera.y) / spriteBatch.zoom;
 
-	if (State != GAME_ACTIVE)return;
+	if (State != GameState::GAME_ACTIVE)return;
 	glm::vec2 player_input_dir = glm::vec2(0, 0);
 
 	//Move based on WASD		
@@ -428,12 +429,12 @@ void Game::ProcessInput(float dt) {
 	if (Keys[GLFW_KEY_SPACE])player->Jump(dt);
 }
 
-void debug(float dt) {
+void debug(double dt) {
 	if ((dt) > 0) {
 		Text->RenderText("FPS", 0, 00, 1);
 		Text->RenderText(std::to_string(1 / (dt)), 70, 00, 1);
 	}
-	Text->RenderText("Player", 5, 35, 1.0F); 	Text->RenderText(std::to_string((int)player->Z), 160, 35, 1.0F);
+	Text->RenderText("Player", 5, 35, 1.0F); 	Text->RenderText(std::to_string((int)player->m_Zlevel), 160, 35, 1.0F);
 	Text->RenderText(std::to_string((int)player->localPos().x), 90, 34, 1.0F);
 	Text->RenderText(std::to_string((int)player->localPos().y), 90, 60, 1.0F);
 
@@ -444,27 +445,25 @@ void debug(float dt) {
 	Text->RenderText(std::to_string(player->zDepthOffset), 90, 100, 1.0F);
 
 }
-
-void Game::Render(float dt) {
+/// <summary>
+/// Game's High level State machine. The application can only be afew distinct state- Editor, Main Menu or Playing.
+/// </summary>
+/// <param name="dt">Timestep of the application</param>
+void Game::Render(double dt) {
 
 	glClearColor(0, 0, 0, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	switch (State)
 	{
-	case GAME_MENU:
-		
+	case GameState::GAME_MENU:		
 		mainMenu.Update_UI(Cursor);
-
 		mainMenu.Render(&spriteBatch, Text, m_program.get());
-
-		
-
 		break;
-	case GAME_ACTIVE:
+	case GameState::GAME_ACTIVE:
 		First.render(&spriteBatch, Text, m_program.get());
 		break;
-	case GAME_EDITOR:
+	case GameState::GAME_EDITOR:
 		game_editor.Update_UI(Cursor);
 
 		game_editor.Render(&spriteBatch, Text, m_program.get());
@@ -479,17 +478,10 @@ void Game::Render(float dt) {
 
 void Game::FetchDirectory()
 {
-
-
-
-
 }
 
 void Game::openPage(int i, GameState w)
-{
-	 
+{	 
 	page::Books[i]->init(Width, Height, this);
-	//page::Books[i]->init(Width, Height, this);
 	  State = w;
-
 }

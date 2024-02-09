@@ -9,7 +9,7 @@ public:
 	Texture2D   tex;
 	float timeLeft= -1;
 	bool isInfinite = false;	
-	std::string name;
+	std::string m_entityName;
 	VFX mainEffect = VFX(glm::vec4(1,1,1,1),2);
 
 	p_fx(Texture2D q) {

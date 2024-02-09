@@ -26,14 +26,14 @@ public:
 		b->pos.y = y;
 		return b;
 	}
-	static UI* createQuickImage(std::string w, int x, int y, float uscale = 5) {
+	static UI* createQuickImage(std::string w, int x, int y, double uscale = 5) {
 		auto q = new UI();
-		q->img = ResourceManager::GetTexture(w);
+		q->m_chipset = ResourceManager::GetTexture(w);
 		q->pos = glm::vec2(x, y);
 		q->scale = uscale;
 		return q;
 	}
-	static UI_BOX* CreateDefaultBox(int x, int y, float sx, float sy, float scale) {
+	static UI_BOX* CreateDefaultBox(int x, int y, double sx, double sy, double scale) {
 
 		auto box = new UI_BOX(
 			ResourceManager::GetTexture("UI_BOX_METAL_TL"),
@@ -56,7 +56,7 @@ public:
 
 
 	}
-	static UI_BOX* CreateDefaultInsideBox(int x, int y, float sx, float sy, float scale) {
+	static UI_BOX* CreateDefaultInsideBox(int x, int y, double sx, double sy, float scale) {
 
 		auto box = new UI_BOX(
 			ResourceManager::GetTexture("M_UI_INSIDE_1.png"),

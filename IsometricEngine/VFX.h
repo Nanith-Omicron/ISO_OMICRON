@@ -5,8 +5,8 @@ struct VFX{
 
 	float  _internalTime =1;
 	float Speed = 5;
-	glm::vec4 ToApply;
-	glm::vec4 ogColor;
+	glm::vec4 ToApply = glm::vec4(0, 0, 0, 0), ogColor = glm::vec4(0, 0, 0, 0);
+
 	VFX() {
 
 	}

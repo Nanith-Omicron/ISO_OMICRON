@@ -12,9 +12,9 @@ class Grid;
 class primitive {
 
 public:
-	glm::vec2 pos;
-	int ID;
-	float Z = 0, H = 0;
+	glm::vec2 pos{};
+	int ID=0;
+	float m_Zlevel = 0, H = 0;
 	glm::vec2 collisionBoundXY = glm::vec2(.3f), collisionBoundZ = glm::vec2(7.5f, 37.5f);
 	bool isAcollidee = true;
 	Cell* currentCell = nullptr;
@@ -25,7 +25,7 @@ public:
 	{
 		ID = d;
 		pos = p;
-		Z = z;
+		m_Zlevel = z;
 		H = h;
 		collisionBoundXY = bdXY;
 		collisionBoundZ = bdZ;

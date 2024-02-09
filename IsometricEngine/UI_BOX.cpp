@@ -1,6 +1,6 @@
 #include "UI_BOX.h"
 
-void UI_BOX::resize(float x, float y)
+void UI_BOX::resize(double x, double y)
 {
 	sx = x;
 	sy = y-.5;
@@ -14,19 +14,18 @@ void UI_BOX::Draw(SpriteBatch& renderer, bool selected) {
 	glm::vec2 p = this->pos;
 	_box box;
  
-		box = internal_box;
-	 
+	box = internal_box;
 
+	double sTa = p.x + box.tl.Width * scale / 2;
 
-	float sTa = p.x + box.tl.Width * scale / 2;
+		
+	double si = (((box.tm.Width) * sx * scale)) - (box.tr.Width + box.tl.Width) * scale;
+	double xsi = (((box.m.Height) * sy * scale)) - (box.m.Height + box.tl.Height) * scale;
 
-	float si = (((box.tm.Width) * sx * scale)) - (box.tr.Width + box.tl.Width) * scale;
-	float xsi = (((box.m.Height) * sy * scale)) - (box.m.Height + box.tl.Height) * scale;
-
-	float yEnd = box.tm.Height * scale / 2 + xsi / 2;
+	double yEnd = box.tm.Height * scale / 2 + xsi / 2;
 	if (si < 0)si = 0;
-	float start = sTa + si / 2;
-	float end = start + si / 2;
+	double start = sTa + si / 2;
+	double end = start + si / 2;
 
 
 	renderer.draw(glm::vec4(p.x, p.y,
@@ -99,15 +98,15 @@ void UI_BOX::Draw(SpriteBatch& renderer, bool selected, _box * b  ){
 		box = *b;
 		
 
-	float sTa = p.x + box.tl.Width * scale/2;
+	double sTa = p.x + box.tl.Width * scale/2;
 
-	float si = (((box.tm.Width ) * sx * scale)) - (box.tr.Width + box.tl.Width) * scale;
-	float xsi = (((box.m.Height) * sy * scale)) - (box.m.Height + box.tl.Height) * scale;
+	double si = (((box.tm.Width ) * sx * scale)) - (box.tr.Width + box.tl.Width) * scale;
+	double xsi = (((box.m.Height) * sy * scale)) - (box.m.Height + box.tl.Height) * scale;
  
-	float yEnd = box.tm.Height * scale / 2 + xsi / 2;
+	double yEnd = box.tm.Height * scale / 2 + xsi / 2;
 	if (si < 0)si = 0;
-	float start = sTa    + si / 2;
-	float end = start +  si / 2;
+	double start = sTa    + si / 2;
+	double end = start +  si / 2;
  
 
 	renderer.draw(glm::vec4(p.x, p.y,

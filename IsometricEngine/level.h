@@ -21,8 +21,8 @@ struct MetaTile {
 public:
 	bool HasTile = false;
 	bool HasOnTop = false;
-	tile* _tile;
-	MetaTile* onTop;
+	tile* _tile{};
+	MetaTile* onTop{};
 
 };
 
@@ -50,24 +50,24 @@ public:
  
 	virtual void exit();
 
-	std::string level_Name;
+	std::string level_Name{};
 	int level_size_X, level_size_Y, level_size_Z;
 	int ScreenH, ScreenW;
-	int level_ID;
+	int level_ID{};
 	int cellSize = 3;
 	int heightOfWall = 3;
-	tile** grid_Tile;
-	MetaTile* metaTile;
-	glm::vec2 LastPLayerPos;
-	performer* player;
-	glm::mat4 ortho;
-	std::unique_ptr < Grid> Area;
-	std::vector<tile*> Tiles;
-	std::vector<UI*> UIs;
-	std::vector<actor*> NPCs, all;
-	std::vector<actor*> Viewable;
-	std::vector<item*> Items;
-	std::vector<region*> Regions, Nearby;
+	tile** grid_Tile{};
+	MetaTile* metaTile{};
+	glm::vec2 LastPLayerPos{};
+	performer* player{};
+	glm::mat4 ortho{};
+	std::unique_ptr < Grid> Area{};
+	std::vector<tile*> Tiles{};
+	std::vector<UI*> UIs{};
+	std::vector<actor*> NPCs{}, all{};
+	std::vector<actor*> Viewable{};
+	std::vector<item*> Items{};
+	std::vector<region*> Regions{}, Nearby{};
 
  
 

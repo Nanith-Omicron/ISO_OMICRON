@@ -35,7 +35,8 @@ void Page_Editor::Update(float dt)
 		 
 			break;
 		case 2 :
-			current->openPage(0, GAME_MENU);
+			current->openPage(0, Game::GameState::GAME_MENU);
+			break;
 		case 3: 
 			ItemDB();
 			break;

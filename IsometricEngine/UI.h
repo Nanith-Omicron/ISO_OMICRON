@@ -9,22 +9,21 @@
 
 class UI {
 public:
-	glm::vec2 pos,offset;
+	glm::vec2 pos{}, offset{};
 	glm::vec4 col = glm::vec4(1);
-	float scale = 3;
+	double scale = 3;
+	bool show = true;
 	glm::vec2 centeredPos()
 	{
 		auto p = pos;
-		p.x -= img.Width / 2;
-		p.y -= img.Height / 2;
+		p.x -= m_chipset.Width / 2;
+		p.y -= m_chipset.Height / 2;
 		return p;
 	}
 
 	
-	Texture2D img;
+	Texture2D m_chipset;
 	void StickTo(actor * x);
 	void setPos(float x, float y);
-	bool show = true;
-	virtual void  Draw(SpriteBatch& renderer, bool selected);
-	 
+	virtual void  Draw(SpriteBatch& renderer, bool selected);	 
 };

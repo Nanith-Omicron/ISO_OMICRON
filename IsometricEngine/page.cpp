@@ -39,10 +39,6 @@ void page::init(int Width, int Height, Game * g)
 	int uscale = 5;
 
 	auto box = UI_BUILDER::CreateDefaultBox(Width / 2, Height / 2 + 400, 6, 5, uscale);
- 
-
-
- 
 	UIs.push_back(box);
  
 	int offset = 40;
@@ -61,8 +57,8 @@ void page::init(int Width, int Height, Game * g)
 	wrr->onClick = *uwu;
 	qww->onClick = *g->Quit;
 	auto eq = new UI();
-	eq->img = ResourceManager::GetTexture("krinj");
-	eq->pos.x = but_x + eq->img.Width * eq->scale/2;
+	eq->m_chipset = ResourceManager::GetTexture("krinj");
+	eq->pos.x = but_x + eq->m_chipset.Width * eq->scale/2;
 	eq->show = true;
 	eq->pos.y = 350;
 	eq->scale = 6;
@@ -148,7 +144,7 @@ void page::Update(float dt)
 
 			break;
 		case 2:
-			current->openPage(1, GAME_EDITOR);
+			current->openPage(1, Game::GameState::GAME_EDITOR);
 			;
 		default:
 			break;	

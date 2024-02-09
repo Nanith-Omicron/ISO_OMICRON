@@ -20,29 +20,29 @@ std::map<std::string, Texture2D>    ResourceManager::Textures;
 std::map<std::string, Shader>       ResourceManager::Shaders;
 
 
-Shader ResourceManager::LoadShader(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile, std::string name)
+Shader ResourceManager::LoadShader(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile, std::string m_entityName)
 {
-	Shaders[name] = loadShaderFromFile(vShaderFile, fShaderFile, gShaderFile);
-	return Shaders[name];
+	Shaders[m_entityName] = loadShaderFromFile(vShaderFile, fShaderFile, gShaderFile);
+	return Shaders[m_entityName];
 }
 
-Shader ResourceManager::GetShader(std::string name)
+Shader ResourceManager::GetShader(std::string m_entityName)
 {
-	return Shaders[name];
+	return Shaders[m_entityName];
 }
 
-Texture2D ResourceManager::LoadTexture(const char* file, bool alpha, std::string name)
+Texture2D ResourceManager::LoadTexture(const char* file, bool alpha, std::string m_entityName)
 {
-	printf(name.c_str());
+	printf(m_entityName.c_str());
 	printf(" \n");
-	Textures[name] = loadTextureFromFile(file, alpha);
+	Textures[m_entityName] = loadTextureFromFile(file, alpha);
 
-	return Textures[name];
+	return Textures[m_entityName];
 }
 
-Texture2D ResourceManager::GetTexture(std::string name)
+Texture2D ResourceManager::GetTexture(std::string m_entityName)
 {
-	return Textures[name];
+	return Textures[m_entityName];
 }
 
 void ResourceManager::Clear()
