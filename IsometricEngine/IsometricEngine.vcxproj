@@ -76,18 +76,18 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <PublicIncludeDirectories>C:\boost_1_84_0\;C:\glew-2.1.0\lib\Release\x64;C:\freetype-2.13.2\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
-    <LibraryPath>C:\glfw-3.3.9.bin.WIN64\include;$(LibraryPath)</LibraryPath>
-    <ExternalIncludePath>C:\glm;$(ExternalIncludePath)</ExternalIncludePath>
+    <PublicIncludeDirectories>$(SolutionDir)dependencies\boost_1_84_0\;$(SolutionDir)dependencies\glew-2.1.0\lib\Release\x64;$(SolutionDir)dependencies\freetype-2.13.2\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
+    <LibraryPath>$(SolutionDir)dependencies\glfw-3.3.9.bin.WIN64\include;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>$(SolutionDir)dependencies\glm;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <PublicIncludeDirectories>C:\boost_1_84_0\;C:\glew-2.1.0\lib\Release\x64;C:\freetype-2.13.2\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
-    <LibraryPath>C:\glfw-3.3.9.bin.WIN64\include;$(LibraryPath)</LibraryPath>
-    <ExternalIncludePath>C:\glm;$(ExternalIncludePath)</ExternalIncludePath>
+    <PublicIncludeDirectories>$(SolutionDir)dependencies\boost_1_84_0\;$(SolutionDir)dependencies\glew-2.1.0\lib\Release\x64;$(SolutionDir)dependencies\freetype-2.13.2\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
+    <LibraryPath>$(SolutionDir)dependencies\glfw-3.3.9.bin.WIN64\include;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>$(SolutionDir)dependencies\glm;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
